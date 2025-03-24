@@ -22,14 +22,16 @@ Route::middleware(['auth'])->group(function () {
 // 管理者専用
 // app/http/authserviceproviderで、管理者フラグがあるユーザーかどうかの判断（isAdminという処理名）
 Route::middleware(['auth', 'can:isAdmin'])->prefix('admin')->group(function () {
-    Route::get('/dashboard', fn() => view('admin.dashboard'));
+    Route::get('/dashboard', fn() => view('admin.dashboard'))->name('admin.dashboard');
     Route::get('/users', fn() => view('admin.users')); // ユーザー管理
     Route::get('/courses', fn() => view('admin.courses')); // 講座管理
+
+
 });
 
 // 受講者専用
 Route::middleware(['auth'])->prefix('user')->group(function () {
-    Route::get('/dashboard', fn() => view('user.dashboard'));
+    Route::get('/dashboard', fn() => view('user.dashboard'))->name('user.dashboard');
     Route::get('/courses', fn() => view('user.courses'));
 });
 
