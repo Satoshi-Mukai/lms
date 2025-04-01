@@ -26,6 +26,8 @@ Route::middleware(['auth', 'can:isAdmin'])->prefix('admin')->group(function () {
     Route::get('/users', fn() => view('admin.users')); // ユーザー管理
     Route::get('/courses', fn() => view('admin.courses')); // 講座管理
 
+    Route::get('/users', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.users');
+
 
 });
 
