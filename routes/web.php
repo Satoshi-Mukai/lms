@@ -28,6 +28,8 @@ Route::middleware(['auth', 'can:isAdmin'])->prefix('admin')->group(function () {
     Route::get('/courses', fn() => view('admin.courses')); // 講座管理
     Route::get('/users', [UserController::class, 'index'])->name('admin.users');
     Route::get('/departments', [DepartmentController::class, 'index'])->name('admin.departments');
+    Route::get('/departments/create', [DepartmentController::class, 'create'])->name('admin.departments.create');
+    Route::post('/departments', [DepartmentController::class, 'store'])->name('admin.departments.store');
 });
 
 
