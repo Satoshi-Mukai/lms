@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\DepartmentController;
 
 // routes/web.php
 
@@ -22,14 +24,13 @@ Route::middleware(['auth'])->group(function () {
 // 管理者専用
 // app/http/authserviceproviderで、管理者フラグがあるユーザーかどうかの判断（isAdminという処理名）
 Route::middleware(['auth', 'can:isAdmin'])->prefix('admin')->group(function () {
-    Route::get('/dashboard', fn() => view('admin.dashboard'))->name('admin.dashboard');
-    Route::get('/users', fn() => view('admin.users')); // ユーザー管理
+    Route::get('/dashboard', fn() => view('admin.dashboard'))->name('admin.dashboard'); // アロー関数で短縮表記　fn() =>
     Route::get('/courses', fn() => view('admin.courses')); // 講座管理
-
-    Route::get('/users', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.users');
-
-
+    Route::get('/users', [UserController::class, 'index'])->name('admin.users');
+    Route::get('/departments', [DepartmentController::class, 'index'])->name('admin.departments');
 });
+
+
 
 // 受講者専用
 Route::middleware(['auth'])->prefix('user')->group(function () {
