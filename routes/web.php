@@ -30,6 +30,9 @@ Route::middleware(['auth', 'can:isAdmin'])->prefix('admin')->group(function () {
     Route::get('/departments', [DepartmentController::class, 'index'])->name('admin.departments');
     Route::get('/departments/create', [DepartmentController::class, 'create'])->name('admin.departments.create');
     Route::post('/departments', [DepartmentController::class, 'store'])->name('admin.departments.store');
+    Route::get('/departments/{id}/edit', [DepartmentController::class, 'edit'])->name('admin.departments.edit');
+    Route::put('/departments/{id}', [DepartmentController::class, 'update'])->name('admin.departments.update');
+    Route::delete('/departments/{id}', [DepartmentController::class, 'destroy'])->name('admin.departments.destroy');
 });
 
 

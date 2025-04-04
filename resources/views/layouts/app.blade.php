@@ -21,16 +21,19 @@
 
             <!-- Page Heading -->
             @isset($header)
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <header class="bg-white shadow">
+                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+                    <div>
                         {{ $header }}
                     </div>
-
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit">ログアウト</button>
-                    </form>
-                </header>
+                    <div>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="text-sm text-red-600 hover:underline">ログアウト</button>
+                        </form>
+                    </div>
+                </div>
+            </header>
             @endisset
 
             <!-- Page Content -->
