@@ -9,8 +9,13 @@
     </div>
     @endif
 
-    <a href="{{ route('admin.departments.create') }}" class="bg-green-500 text-black px-4 py-2 rounded">＋ 新規部署を作成</a>
     <div class="py-6 max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="flex justify-end mb-4">
+            <a href="{{ route('admin.departments.create') }}" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded shadow">
+                ＋ 新規部署を作成
+            </a>
+        </div>
+
         <div class="bg-white p-6 rounded shadow">
             <table class="w-full table-auto">
                 <thead>
@@ -37,7 +42,6 @@
                                     <button type="submit" class="text-red-500 hover:underline">削除</button>
                                 </form>
                             </td>
-
                         </tr>
                     @endforeach
                 </tbody>
