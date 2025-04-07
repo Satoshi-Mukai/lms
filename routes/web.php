@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\TestSetController;
+
 
 // routes/web.php
 
@@ -26,13 +28,24 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', 'can:isAdmin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', fn() => view('admin.dashboard'))->name('admin.dashboard'); // アロー関数で短縮表記　fn() =>
     Route::get('/courses', fn() => view('admin.courses')); // 講座管理
-    Route::get('/users', [UserController::class, 'index'])->name('admin.users');
     Route::get('/departments', [DepartmentController::class, 'index'])->name('admin.departments');
     Route::get('/departments/create', [DepartmentController::class, 'create'])->name('admin.departments.create');
     Route::post('/departments', [DepartmentController::class, 'store'])->name('admin.departments.store');
     Route::get('/departments/{id}/edit', [DepartmentController::class, 'edit'])->name('admin.departments.edit');
     Route::put('/departments/{id}', [DepartmentController::class, 'update'])->name('admin.departments.update');
     Route::delete('/departments/{id}', [DepartmentController::class, 'destroy'])->name('admin.departments.destroy');
+
+    //ユーザー関連
+    Route::get('/users', [UserController::class, 'index'])->name('admin.users');
+    Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
+    Route::put('/users/{id}', [UserController::class, 'update'])->name('admin.users.update');
+    Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+    Route::get('/users/create', [UserController::class, 'create'])->name('admin.users.create');
+    Route::post('/users', [UserController::class, 'store'])->name('admin.users.store');
+
+    //テスト関連
+    Route::get('/test_sets/create', [TestSetController::class, 'create'])->name('admin.test_sets.create');
+    Route::post('/test_sets', [TestSetController::class, 'store'])->name('admin.test_sets.store');
 });
 
 
