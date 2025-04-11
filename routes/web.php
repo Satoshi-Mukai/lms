@@ -44,8 +44,12 @@ Route::middleware(['auth', 'can:isAdmin'])->prefix('admin')->group(function () {
     Route::post('/users', [UserController::class, 'store'])->name('admin.users.store');
 
     //テスト関連
+    Route::get('/test_sets', [TestSetController::class, 'index'])->name('admin.test_sets.index');
     Route::get('/test_sets/create', [TestSetController::class, 'create'])->name('admin.test_sets.create');
     Route::post('/test_sets', [TestSetController::class, 'store'])->name('admin.test_sets.store');
+    Route::get('/test_sets/{id}/edit', [TestSetController::class, 'edit'])->name('admin.test_sets.edit');
+    Route::put('/test_sets/{id}', [TestSetController::class, 'update'])->name('admin.test_sets.update');
+
 });
 
 
