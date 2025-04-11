@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\TestSetController;
-
+use App\Http\Controllers\User\CourseController;
 
 // routes/web.php
 
@@ -58,6 +58,8 @@ Route::middleware(['auth', 'can:isAdmin'])->prefix('admin')->group(function () {
 Route::middleware(['auth'])->prefix('user')->group(function () {
     Route::get('/dashboard', fn() => view('user.dashboard'))->name('user.dashboard');
     Route::get('/courses', fn() => view('user.courses'));
+    Route::get('/courses/{course}', [CourseController::class, 'show'])->name('user.courses.show');
+
 });
 
 

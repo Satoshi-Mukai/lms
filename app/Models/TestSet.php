@@ -12,4 +12,9 @@ class TestSet extends Model
     {
         return $this->hasMany(Question::class);
     }
+    
+    public function course()
+    {
+        return $this->hasOne(Course::class);
+    }
 }
