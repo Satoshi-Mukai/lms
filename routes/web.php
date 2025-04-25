@@ -4,8 +4,12 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DepartmentController;
+
+use App\Http\Controllers\Admin\CourseController as AdminCourseController;
+use App\Http\Controllers\User\CourseController as UserCourseController;
+
 use App\Http\Controllers\Admin\TestSetController;
-use App\Http\Controllers\User\CourseController;
+use App\Http\Controllers\User\TestController;
 
 // routes/web.php
 
@@ -43,6 +47,9 @@ Route::middleware(['auth', 'can:isAdmin'])->prefix('admin')->group(function () {
     Route::get('/users/create', [UserController::class, 'create'])->name('admin.users.create');
     Route::post('/users', [UserController::class, 'store'])->name('admin.users.store');
 
+    //教材管理
+    Route::resource('courses', AdminCourseController::class)->names('admin.courses');
+
     //テスト関連
     Route::get('/test_sets', [TestSetController::class, 'index'])->name('admin.test_sets.index');
     Route::get('/test_sets/create', [TestSetController::class, 'create'])->name('admin.test_sets.create');
@@ -58,7 +65,9 @@ Route::middleware(['auth', 'can:isAdmin'])->prefix('admin')->group(function () {
 Route::middleware(['auth'])->prefix('user')->group(function () {
     Route::get('/dashboard', fn() => view('user.dashboard'))->name('user.dashboard');
     Route::get('/courses', fn() => view('user.courses'));
-    Route::get('/courses/{course}', [CourseController::class, 'show'])->name('user.courses.show');
+    Route::get('/courses/{course}', [UserCourseController::class, 'show'])->name('user.courses.show');
+    Route::get('/tests/{test_set}', [TestController::class, 'show'])->name('user.tests.show');
+    Route::post('/tests/{test_set}/submit', [TestController::class, 'submit'])->name('user.tests.submit');
 
 });
 
