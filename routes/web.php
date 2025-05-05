@@ -14,9 +14,19 @@ use App\Http\Controllers\User\TestController;
 // routes/web.php
 
 // 誰でも見れるページ（ログイン不要）
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');    
 });
+Route::get('/admin/login', [\App\Http\Controllers\Admin\Auth\LoginController::class, 'showLoginForm'])->name('admin.login');
+Route::get('/user/login', [\App\Http\Controllers\User\Auth\LoginController::class, 'showLoginForm'])->name('user.login');
+
+
+
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
 Route::get('/guest', function () {
     return view('guest');
 });
@@ -27,11 +37,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 });
 
+
 // 管理者専用
 // app/http/authserviceproviderで、管理者フラグがあるユーザーかどうかの判断（isAdminという処理名）
-Route::middleware(['auth', 'can:isAdmin'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'can:isAdmin'])->prefix('admin')->group(function () {    
+
     Route::get('/dashboard', fn() => view('admin.dashboard'))->name('admin.dashboard'); // アロー関数で短縮表記　fn() =>
-    Route::get('/courses', fn() => view('admin.courses')); // 講座管理
+    //Route::get('/courses', fn() => view('admin.courses')); // 講座管理
     Route::get('/departments', [DepartmentController::class, 'index'])->name('admin.departments');
     Route::get('/departments/create', [DepartmentController::class, 'create'])->name('admin.departments.create');
     Route::post('/departments', [DepartmentController::class, 'store'])->name('admin.departments.store');
@@ -64,7 +76,7 @@ Route::middleware(['auth', 'can:isAdmin'])->prefix('admin')->group(function () {
 // 受講者専用
 Route::middleware(['auth'])->prefix('user')->group(function () {
     Route::get('/dashboard', fn() => view('user.dashboard'))->name('user.dashboard');
-    Route::get('/courses', fn() => view('user.courses'));
+    //Route::get('/courses', fn() => view('user.courses'));
     Route::get('/courses/{course}', [UserCourseController::class, 'show'])->name('user.courses.show');
     Route::get('/tests/{test_set}', [TestController::class, 'show'])->name('user.tests.show');
     Route::post('/tests/{test_set}/submit', [TestController::class, 'submit'])->name('user.tests.submit');
