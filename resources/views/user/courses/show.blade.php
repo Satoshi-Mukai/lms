@@ -6,11 +6,8 @@
 
     <div class="max-w-4xl mx-auto py-6">
         <div class="aspect-w-16 aspect-h-9">
-            <iframe src="{{ $course->youtube_url }}"
-            class="w-full h-full"
-            frameborder="0"
-            allowfullscreen>
-            </iframe>
+            <iframe src="{{ asset('pdfjs/web/viewer.html') }}?file={{ asset('storage/pdf/' . $course->pdf_filename) }}"
+                class="w-full h-[600px]" frameborder="0"></iframe>
         </div>
 
         <p class="mb-6 text-gray-700">{{ $course->description }}</p>
