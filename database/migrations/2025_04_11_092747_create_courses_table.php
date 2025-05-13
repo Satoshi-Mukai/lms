@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->string('youtube_url'); // 今回、教材は仮にyoutube動画埋め込みにする
+            //$table->string('youtube_url'); // 今回、教材は仮にyoutube動画埋め込みにする
             $table->foreignId('test_set_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

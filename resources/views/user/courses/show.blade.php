@@ -5,10 +5,14 @@
     </x-slot>
 
     <div class="max-w-4xl mx-auto py-6">
-        <div class="aspect-w-16 aspect-h-9">
-            <iframe src="{{ asset('pdfjs/web/viewer.html') }}?file={{ asset('storage/pdf/' . $course->pdf_filename) }}"
-                class="w-full h-[600px]" frameborder="0"></iframe>
-        </div>
+        @if ($course->pdf_filename)
+            <div class="aspect-w-16 aspect-h-9">
+                <!-- <iframe src="{{ asset('pdfjs/web/viewer.html') }}?file={{ asset('storage/pdf/' . $course->pdf_filename) }}" class="w-full h-[600px]" frameborder="0"></iframe> -->
+                <iframe src="{{ asset('storage/pdf/' . $course->pdf_filename) }}" width="100%" height="600px"></iframe>
+            </div>
+        @else
+            <p class="text-gray-500">PDF教材が登録されていません。</p>
+        @endif
 
         <p class="mb-6 text-gray-700">{{ $course->description }}</p>
 

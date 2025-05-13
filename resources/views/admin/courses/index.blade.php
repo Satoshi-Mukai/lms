@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold text-gray-800">
-            {{ $year }}年度の教材一覧
+            教材一覧
         </h2>
     </x-slot>
 

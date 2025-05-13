@@ -6,7 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
 {
-    protected $fillable = ['title', 'description', 'youtube_url', 'test_set_id'];
+    protected $fillable = [
+        'title',
+        'description',
+        'year',
+        'test_set_id',
+        'pdf_filename',
+    ];
     
     public function testSet()
     {

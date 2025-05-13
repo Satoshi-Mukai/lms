@@ -13,10 +13,8 @@ class CourseController extends Controller
      */
     public function index(Request $request)
     {
-        $year = $request->query('year', now()->year); // デフォルトは今年
-        $courses = Course::where('year', $year)->get();
-    
-        return view('admin.courses.index', compact('courses', 'year'));
+        $courses = Course::all();
+        return view('admin.courses.index', compact('courses'));
     }
 
     /**
@@ -24,9 +22,10 @@ class CourseController extends Controller
      */
     public function create(Request $request)
     {
-        $year = $request->query('year', now()->year);
-        $testSets = \App\Models\TestSet::pluck('year', 'id');
-        return view('admin.courses.create', compact('year', 'testSets'));
+        // $year = $request->query('year', now()->year);
+        // $testSets = \App\Models\TestSet::pluck('year', 'id');
+        $testSets = \App\Models\TestSet::all();
+        return view('admin.courses.create', compact('testSets'));
     }
 
     /**
@@ -37,16 +36,26 @@ class CourseController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'year' => 'required|string|max:4',
-            'youtube_url' => 'nullable|url',
+            'year' => 'required|string|max:20',
             'test_set_id' => 'nullable|exists:test_sets,id',
+            'pdf_file' => 'nullable|file|mimes:pdf|max:10240', // 10MB limit
         ]);
-    
-        \App\Models\Course::create($request->only([
-            'title', 'description', 'year', 'youtube_url', 'test_set_id'
-        ]));
-    
-        return redirect()->route('admin.courses.index', ['year' => $request->year])
+
+        $data = $request->only([
+            'title', 'description', 'year', 'test_set_id'
+        ]);
+
+
+
+        if ($request->hasFile('pdf_file')) {
+            $filename = time() . '_' . $request->file('pdf_file')->getClientOriginalName();
+            $request->file('pdf_file')->storeAs('public/pdf', $filename, 'public');
+            $data['pdf_filename'] = $filename;
+        }
+
+        \App\Models\Course::create($data);
+
+        return redirect()->route('admin.courses.index')
                          ->with('success', '教材を登録しました');
     }
 
