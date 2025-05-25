@@ -78,6 +78,10 @@ Route::middleware(['auth'])->prefix('user')->group(function () {
     Route::get('/dashboard', fn() => view('user.dashboard'))->name('user.dashboard');
     //Route::get('/courses', fn() => view('user.courses'));
     Route::get('/courses/{course}', [UserCourseController::class, 'show'])->name('user.courses.show');
+
+    //PDFを非公開にする
+    Route::get('/courses/{course}/pdf', [UserCourseController::class, 'downloadPdf'])->middleware('auth')->name('user.courses.pdf');
+    
     Route::get('/tests/{test_set}', [TestController::class, 'show'])->name('user.tests.show');
     Route::post('/tests/{test_set}/submit', [TestController::class, 'submit'])->name('user.tests.submit');
 

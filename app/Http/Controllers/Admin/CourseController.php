@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Course;
+use Illuminate\Support\Facades\Storage;
 
 class CourseController extends Controller
 {
@@ -49,7 +50,13 @@ class CourseController extends Controller
 
         if ($request->hasFile('pdf_file')) {
             $filename = time() . '_' . $request->file('pdf_file')->getClientOriginalName();
-            $request->file('pdf_file')->storeAs('public/pdf', $filename, 'public');
+            // Store in 'storage/app/public/pdf', accessible via '/storage/pdf/...'
+            
+            // 動作確認はできたが、これ↓では、公開状態
+            // $request->file('pdf_file')->storeAs('pdf', $filename, 'public');
+
+            //privateの保管場所に指定
+            $request->file('pdf_file')->storeAs('pdf', $filename);
             $data['pdf_filename'] = $filename;
         }
 
@@ -89,5 +96,15 @@ class CourseController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    // 認証されたユーザーでなければ、このPDFにアクセスできないための処理
+    public function downloadPdf(Course $course)
+    {
+        if (!auth()->check()) {
+            abort(403); // 未ログインなら403エラーを返す
+        }
+
+        return response()->file(storage_path('app/private/pdf/' . $course->pdf_filename));
     }
 }

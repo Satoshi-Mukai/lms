@@ -8,7 +8,11 @@
         @if ($course->pdf_filename)
             <div class="aspect-w-16 aspect-h-9">
                 <!-- <iframe src="{{ asset('pdfjs/web/viewer.html') }}?file={{ asset('storage/pdf/' . $course->pdf_filename) }}" class="w-full h-[600px]" frameborder="0"></iframe> -->
-                <iframe src="{{ asset('storage/pdf/' . $course->pdf_filename) }}" width="100%" height="600px"></iframe>
+                
+                <!-- これで動作はできたが、PDFが公開状態になってしまう
+                iframe src="{{ asset('storage/pdf/' . $course->pdf_filename) }}" width="100%" height="600px"></!--iframe-->
+
+                <iframe src="{{ route('user.courses.pdf', $course->id) }}" width="100%" height="600px"></iframe>
             </div>
         @else
             <p class="text-gray-500">PDF教材が登録されていません。</p>
