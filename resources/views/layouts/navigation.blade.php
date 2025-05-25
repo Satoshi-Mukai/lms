@@ -104,19 +104,37 @@
 
     <!-- 管理者だけに表示するメニュー -->
     @if (Auth::check() && Auth::user()->is_admin)
-    <div class="flex flex-1">
+    <div class="flex flex-1 min-h-screen">
         <aside class="w-64 bg-green-800 text-white p-6 space-y-6">
             <a href="{{ route('admin.users') }}" class="block hover:text-blue-600">従業員管理</a>
             <a href="{{ route('admin.departments') }}" class="block hover:text-blue-600">部署管理</a>
             <a href="{{ route('admin.courses.index', ['year' => 2025]) }}" class="block hover:text-blue-600">教材管理</a>
             <a href="{{ route('admin.test_sets.index') }}" class="block hover:text-blue-600">テスト管理</a>
         </aside>
-    @endif
-    
-        <main class="flex-1">
+        <main class="flex-1 p-6">
             <div class="p-6">
                 {{ $slot }}
             </div>
         </main>
     </div>
+    @endif
+    <!-- ユーザーだけに表示するメニュー -->
+    @auth
+        @if (!auth()->user()->is_admin)
+        <div class="flex flex-1 min-h-screen">
+            <aside class="w-64 bg-green-800 text-white p-6 space-y-6">
+                <a href="{{ route('user.dashboard') }}" class="block py-2 hover:bg-green-800 rounded px-2">受講者ダッシュボード</a>
+                <a href="{{ route('user.courses.index') }}" class="block py-2 hover:bg-green-800 rounded px-2">教材一覧</a>
+                <!--a href="{{ route('user.tests.index') }}" class="block py-2 hover:bg-green-800 rounded px-2">理解度テスト</a-->
+            </aside>
+            <main class="flex-1 p-6">
+                <div class="p-6">
+                    {{ $slot }}
+                </div>
+            </main>
+        </div>
+        @endif
+    @endauth
+    
+</div>
 </div>
