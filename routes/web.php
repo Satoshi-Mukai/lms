@@ -10,16 +10,24 @@ use App\Http\Controllers\User\CourseController as UserCourseController;
 
 use App\Http\Controllers\Admin\TestSetController;
 use App\Http\Controllers\User\TestController;
+use App\Http\Controllers\LandingController;
 
 // routes/web.php
 
 // 誰でも見れるページ（ログイン不要）
 
+// トップページにindex.blade.phpの内容が表示されなくなったので、Controllerを使う形に修正を検証。そのためコメントアウト
 Route::get('/', function () {
+//   return view('a');
     return view('index');    
 });
-Route::get('/admin/login', [\App\Http\Controllers\Admin\Auth\LoginController::class, 'showLoginForm'])->name('admin.login');
-Route::get('/user/login', [\App\Http\Controllers\User\Auth\LoginController::class, 'showLoginForm'])->name('user.login');
+
+// // 明示的にコントローラーを使用して、トップページ表示する
+// Route::get('/', [LandingController::class, 'index'])->name('landing');
+
+// Route::get('/admin/login', [\App\Http\Controllers\Admin\Auth\LoginController::class, 'showLoginForm'])->name('admin.login');
+// Route::get('/user/login', [\App\Http\Controllers\User\Auth\LoginController::class, 'showLoginForm'])->name('user.login');
+
 
 
 
@@ -27,9 +35,14 @@ Route::get('/user/login', [\App\Http\Controllers\User\Auth\LoginController::clas
 //    return view('welcome');
 //});
 
-Route::get('/guest', function () {
-    return view('guest');
-});
+// Route::get('/guest', function () {
+//     return view('guest');
+// });
+
+// ミドルウェアを通したら、表示された
+// Route::middleware(['auth'])->get('/', function () {
+//     return view('index');
+// });
 
 // ログイン後共通（プロフィールなど）
 // ミドルウェアauthを通してからアクセスさせる
