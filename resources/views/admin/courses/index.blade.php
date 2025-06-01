@@ -5,6 +5,12 @@
         </h2>
     </x-slot>
 
+    <div class="flex justify-end mb-4 px-6">
+        <a href="{{ route('admin.courses.create') }}" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded shadow">
+            ＋ 新規教材を作成
+        </a>
+    </div>
+
     <div class="p-6">
         @foreach ($courses as $course)
             <div class="mb-4 p-4 bg-white shadow rounded">

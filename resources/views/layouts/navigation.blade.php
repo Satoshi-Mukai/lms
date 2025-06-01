@@ -108,7 +108,7 @@
         <aside class="w-64 bg-green-800 text-white p-6 space-y-6">
             <a href="{{ route('admin.users') }}" class="block hover:text-blue-600">従業員管理</a>
             <a href="{{ route('admin.departments') }}" class="block hover:text-blue-600">部署管理</a>
-            <a href="{{ route('admin.courses.index', ['year' => 2025]) }}" class="block hover:text-blue-600">教材管理</a>
+            <a href="{{ route('admin.courses.index') }}" class="block hover:text-blue-600">教材管理</a>
             <a href="{{ route('admin.test_sets.index') }}" class="block hover:text-blue-600">テスト管理</a>
         </aside>
         <main class="flex-1 p-6">

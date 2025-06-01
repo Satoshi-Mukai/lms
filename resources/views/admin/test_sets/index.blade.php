@@ -10,7 +10,11 @@
                 {{ session('success') }}
             </div>
         @endif
-
+        <div class="flex justify-end mb-4 px-6">
+    <a href="{{ route('admin.test_sets.create') }}" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded shadow">
+        ＋ 新規テストを作成
+    </a>
+</div>
     <div class="py-6 max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4">
             <table class="w-full table-auto">
