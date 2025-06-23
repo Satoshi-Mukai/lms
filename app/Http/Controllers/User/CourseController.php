@@ -75,11 +75,12 @@ class CourseController extends Controller
     }
     public function downloadPdf(Course $course)
     {
-        if (!$course->pdf_filename || !Storage::disk('public')->exists('pdf/' . $course->pdf_filename)) {
+        $path = storage_path('app/private/pdf/' . $course->pdf_filename);
+
+        if (!$course->pdf_filename || !file_exists($path)) {
             abort(404, 'PDFファイルが存在しません');
         }
 
-        $path = storage_path('app/public/pdf/' . $course->pdf_filename);
         return response()->file($path, [
             'Content-Type' => 'application/pdf',
             'Content-Disposition' => 'inline; filename="' . $course->pdf_filename . '"',

@@ -50,13 +50,8 @@ class CourseController extends Controller
 
         if ($request->hasFile('pdf_file')) {
             $filename = time() . '_' . $request->file('pdf_file')->getClientOriginalName();
-            // Store in 'storage/app/public/pdf', accessible via '/storage/pdf/...'
-            
-            // 動作確認はできたが、これ↓では、公開状態
-            // $request->file('pdf_file')->storeAs('pdf', $filename, 'public');
 
-            //privateの保管場所に指定
-            $request->file('pdf_file')->storeAs('pdf', $filename);
+            $path = $request->file('pdf_file')->storeAs('pdf', $filename);
             $data['pdf_filename'] = $filename;
         }
 
