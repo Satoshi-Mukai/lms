@@ -43,13 +43,13 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->update($request->only(['name', 'email', 'department_id']));
 
-        return redirect()->route('admin.users')->with('success', 'ユーザー情報を更新しました。');
+        return redirect()->route('admin.users.index')->with('success', 'ユーザー情報を更新しました。');
     }
 
     public function destroy($id)
     {
         User::findOrFail($id)->delete();
-        return redirect()->route('admin.users')->with('success', 'ユーザーを削除しました。');
+        return redirect()->route('admin.users.index')->with('success', 'ユーザーを削除しました。');
     }
 
     public function create()
@@ -75,7 +75,7 @@ class UserController extends Controller
             'department_id' => $request->department_id,
         ]);
 
-        return redirect()->route('admin.users')->with('success', 'ユーザーを登録しました');
+        return redirect()->route('admin.users.index')->with('success', 'ユーザーを登録しました');
     }
 
     public function import(Request $request)

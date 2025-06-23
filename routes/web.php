@@ -65,7 +65,7 @@ Route::middleware(['auth', 'can:isAdmin'])->prefix('admin')->group(function () {
     Route::delete('/departments/{id}', [DepartmentController::class, 'destroy'])->name('admin.departments.destroy');
 
     //ユーザー関連
-    Route::get('/users', [UserController::class, 'index'])->name('admin.users');
+    Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
     Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
     Route::put('/users/{id}', [UserController::class, 'update'])->name('admin.users.update');
     Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
@@ -97,7 +97,7 @@ Route::middleware(['auth'])->prefix('user')->group(function () {
     Route::get('/courses/{course}', [UserCourseController::class, 'show'])->name('user.courses.show');
 
     //PDFを非公開にする
-    Route::get('/courses/{course}/pdf', [UserCourseController::class, 'downloadPdf'])->middleware('auth')->name('user.courses.pdf');
+    Route::get('/courses/{course}/pdf', [UserCourseController::class, 'downloadPdf'])->name('user.courses.pdf');
 
     Route::get('/tests', [TestController::class, 'index'])->name('user.tests.index');
     Route::get('/tests/{test_set}', [TestController::class, 'show'])->name('user.tests.show');
