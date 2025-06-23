@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Department;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\UsersImport;
+
 
 class UserController extends Controller
 {
@@ -73,6 +76,18 @@ class UserController extends Controller
         ]);
 
         return redirect()->route('admin.users')->with('success', 'ユーザーを登録しました');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'csv_file' => 'required|mimes:csv,txt',
+        ]);
+
+        Excel::import(new UsersImport, $request->file('csv_file'));
+
+        return redirect()->route('admin.users.index')
+                        ->with('success', 'CSVから受講者を登録しました！');
     }
 
 }

@@ -5,6 +5,15 @@
         </h2>
     </x-slot>
 
+
+    <div class="flex justify-end mb-4">
+        <form action="{{ route('admin.users.import') }}" method="POST" enctype="multipart/form-data" class="flex items-center space-x-2">
+            @csrf
+            <input type="file" name="csv_file" accept=".csv" required class="border rounded px-2 py-1">
+            <button type="submit" class="bg-blue-600 text-white font-semibold px-4 py-2 rounded shadow hover:bg-blue-700">CSV一括登録</button>
+        </form>
+    </div>
+
     <div class="py-6 max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4">
             <table class="w-full table-auto">
@@ -42,4 +51,5 @@
             </table>
         </div>
     </div>
+
 </x-app-layout>

@@ -71,6 +71,8 @@ Route::middleware(['auth', 'can:isAdmin'])->prefix('admin')->group(function () {
     Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
     Route::get('/users/create', [UserController::class, 'create'])->name('admin.users.create');
     Route::post('/users', [UserController::class, 'store'])->name('admin.users.store');
+    Route::post('/users/import', [UserController::class, 'import'])->name('admin.users.import');
+
 
     //教材管理
     Route::resource('courses', AdminCourseController::class)->names('admin.courses');
